@@ -4,7 +4,7 @@ Donate link:
 Tags: gallery, jquery masonry
 Requires at least: 3.5
 Tested up to: 3.6
-Stable tag: 1.0
+Stable tag: 1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,6 +35,13 @@ Yes. It's actually really easy. Go to the Dashboard -> Settings -> Media. Make s
 2. Native WordPress Gallery not using jQuery Masonry
 
 == Changelog ==
+1.5 - Added options page to let users decide to either respect WordPress columns or let Masonry layout FINISH
+
+1.3 - Typo
+
+1.2 - Better version detection
+
+1.1 - Better backwards compatiblity with WordPress 3.5
 
 1.0 - Big update. Now uses the new has_shortcode function available in WP 3.6 with fallback for older version of WP. Also uses thumbnail size for better resizing during window resize. Only injects  1 line of CSS for thumbnail size.  
 
@@ -47,6 +54,13 @@ Yes. It's actually really easy. Go to the Dashboard -> Settings -> Media. Make s
 0.1 - First Release
 
 == Upgrade Notice ==
+1.5 - Added options page to let users decide to either respect WordPress columns or let Masonry layout FINISH
+
+1.3 - Typo
+
+1.2 - Better version detection
+
+1.1 - Better backwards compatiblity with WordPress 3.5
 
 1.0 - Big update. Now uses the new has_shortcode function available in WP 3.6 with fallback for older version of WP. Also uses thumbnail size for better resizing during window resize. Only injects  1 line of CSS for thumbnail size.  
 
