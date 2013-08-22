@@ -5,7 +5,7 @@
 Plugin Name:  jQuery Masonry Image Gallery
 Plugin URI:   http://willrees.com/2013/02/jquery-masonry-and-native-wordpress-image-galleries/
 Description:  Injects jQuery Masonry for native WordPress image galleries. jQuery Masonry is included in WordPress, use it for image galleries. Works best on galleries <strong>without</strong> 1:1 scaled thumbnails.
-Version:      1.5
+Version:      1.6
 Author:       Will Rees
 Author URI:   http://willrees.com
 License:
@@ -28,6 +28,12 @@ License:
 */
 
 if (is_admin()) {
+
+	function cleanup_on_deactivate() {
+		delete_option('jmig_option');
+	}
+
+	register_deactivation_hook(__FILE__, 'cleanup_on_deactivate');
 
 	add_action('admin_init', 'jmig_options_init' );
 	add_action('admin_menu', 'jmig_options_add_page');
@@ -151,9 +157,7 @@ else {
 	
 	}
 	
-		function masonry_init() 
-		
-			{
+		function masonry_init() {
 		
 				wp_register_script('masonryInit',
 				plugins_url( 'masonry-init.js' , __FILE__ ),
@@ -163,7 +167,7 @@ else {
         
 					wp_enqueue_script('masonryInit');
      
-			}
+		}
   
   add_action('wp_enqueue_scripts', 'masonry_init');}
   
