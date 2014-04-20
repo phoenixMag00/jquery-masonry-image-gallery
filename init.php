@@ -52,7 +52,6 @@ if (is_admin()) {
 					<?php $jmig_options = get_option('jmig_option'); ?>
 					<table class="form-table">
 					
-						<p>Check this box <strong>ONLY</strong> if you need to maintain the column count in the WordPress gallery short code. Masonry works best without this setting enabled to allow it to ignore the amount of columns specified in the gallery settings. If you have a responsive design, leave this box unchecked to avoid gallery thumbnail overlap during window resize.</p>
 						<tr valign="top"><th scope="row"><strong>DO NOT</strong> allow Masonry to layout your gallery columns?</th>
 							<td><input name="jmig_option[fixed_layout]" type="checkbox" value="1" <?php checked('1', $jmig_options['fixed_layout']); ?> /></td>
 						</tr>
