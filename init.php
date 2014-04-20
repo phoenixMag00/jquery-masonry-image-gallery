@@ -44,7 +44,15 @@ if (is_admin()) {
 		
 		// Draw the menu page itself
 		function jmig_options_do_page() {
-			?>
+		
+		global $select_options, $radio_options;
+		
+		if ( ! isset( $_REQUEST['settings-updated'] ) )
+		
+		$_REQUEST['settings-updated'] = false;
+		
+?>
+
 			<div class="wrap">
 				<h2>jQuery Masonry Image Gallery Options</h2>
 				<form method="post" action="options.php">
@@ -52,8 +60,10 @@ if (is_admin()) {
 					<?php $jmig_options = get_option('jmig_option'); ?>
 					<table class="form-table">
 					
+						<p>Check this box <strong>ONLY</strong> if you need to maintain the column count in the WordPress gallery short code. Might be necessary in some themes.</p>
+						
 						<tr valign="top"><th scope="row"><strong>DO NOT</strong> allow Masonry to layout your gallery columns?</th>
-							<td><input name="jmig_option[fixed_layout]" type="checkbox" value="1" <?php checked('1', $jmig_options['fixed_layout']); ?> /></td>
+							<td><input name="jmig_option[fixed_layout]" type="checkbox" value="1" <?php checked( '1', (isset($jmig_options['fixed_layout'])) ); ?> /></td>
 						</tr>
 						
 					</table>
@@ -71,6 +81,9 @@ if (is_admin()) {
 			$input['fixed_layout'] = ( $input['fixed_layout'] == 1 ? 1 : 0 );
 			
 			return $input;
+			global $select_options, $radio_options;
+				
+				return $input;
 		}
 	
 	}
