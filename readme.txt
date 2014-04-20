@@ -1,20 +1,22 @@
 === jQuery Masonry Image Gallery ===
 Contributors: phoenixMagoo
 Donate link: 
-Tags: gallery, jquery masonry
+Tags: gallery, jquery masonry, masonry
 Requires at least: 3.5
-Tested up to: 3.6
-Stable tag: 1.6
+Tested up to: 3.9
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Applies jQuery Masonry to native WordPress image galleries. Works best on galleries without 1:1 scaled thumbnails.
+Applies Masonry to native WordPress image galleries. Works best on galleries without 1:1 scaled thumbnails.
 
 == Description ==
 
-Applies jQuery Masonry to native WordPress image galleries. jQuery Masonry is included in WordPress, use it for image galleries. Works best on galleries <strong>without</strong> 1:1 scaled thumbnails.
+Applies Masonry to native WordPress image galleries. Masonry is included in WordPress, use it for image galleries. Works best on galleries <strong>without</strong> 1:1 scaled thumbnails.
 
-<strong>Please note:</strong> This plugin will only include 1 line of CSS in your theme. The only CSS injected is the thumbnail width that is taken directly from the Media options page. This will not alter gallery thumbnail styles such as border, padding, etc. This 1 line of CSS helps eliminate image overlap in a responsive theme during window resize.
+<strong>Please note:</strong> This plugin will include 1 line of CSS in your theme. The only CSS injected is the thumbnail width that is taken directly from the Media options page. This will not alter gallery thumbnail styles such as border, padding, etc. This 1 line of CSS helps eliminate image overlap in a responsive theme during window resize. You can turn this off in the options page if necessary. 
+
+This plugin also includes 1 CSS file that is for animation purposes only (Chrome, Firefox, Safari and IE 10+). The entire gallery will fade in using a CSS3 animation once all the images have loaded. This include will not alter gallery thumbnail styles such as border, padding, etc. IE 8 and IE 9 will work, but will not fade in.
 
 == Installation ==
 
@@ -40,6 +42,8 @@ Yes. It's actually really easy. Go to the Dashboard -> Settings -> Media. Make s
 2. Native WordPress Gallery not using jQuery Masonry
 
 == Changelog ==
+2.1.1 - Better performance on WordPress 3.9+ using the vanilla js option included in Masonry 3. Galleries now fade-in after all images have loaded in modern browsers and IE 10+. Backwards compatibility included for IE 8 and IE 9 (loads, but no fade). This is the last release that will support WordPress 3.5 . The next release will still support WordPress 3.6 .
+
 1.6 - Added options page to let users decide to either respect WordPress columns or let Masonry layout gallery
 
 1.3 - Typo
@@ -59,6 +63,8 @@ Yes. It's actually really easy. Go to the Dashboard -> Settings -> Media. Make s
 0.1 - First Release
 
 == Upgrade Notice ==
+2.1.1 - Better performance on WordPress 3.9+ using the vanilla js option included in Masonry 3. Galleries now fade-in after all images have loaded in modern browsers and IE 10+. Backwards compatibility included for IE 8 and IE 9 (loads, but no fade). This is the last release that will support WordPress 3.5 . The next release will still support WordPress 3.6 .
+
 1.6 - Added options page to let users decide to either respect WordPress columns or let Masonry layout gallery
 
 1.3 - Typo
