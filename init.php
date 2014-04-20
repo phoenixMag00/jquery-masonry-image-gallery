@@ -29,12 +29,6 @@ License:
 
 if (is_admin()) {
 
-	function cleanup_on_deactivate() {
-		delete_option('jmig_option');
-	}
-
-	register_deactivation_hook(__FILE__, 'cleanup_on_deactivate');
-
 	add_action('admin_init', 'jmig_options_init' );
 	add_action('admin_menu', 'jmig_options_add_page');
 	
