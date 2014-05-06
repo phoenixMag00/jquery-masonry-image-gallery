@@ -57,6 +57,10 @@ if (is_admin()) {
 				
 				<h2>jQuery Masonry Image Gallery Options</h2>
 				
+				<style>
+				#jmig_option_item_margin {width: 2em !important;}
+				</style>
+				
 					<form method="post" action="options.php">
 					
 						<?php settings_fields('jmig_options_options'); ?>
@@ -71,6 +75,13 @@ if (is_admin()) {
 										<td><input name="jmig_option[fixed_layout]" type="checkbox" value="1" <?php checked( '1', (isset($jmig_options['fixed_layout'])) ); ?> /></td>
 									
 									</tr>
+									
+									<tr valign="top"><th scope="row"><?php _e( 'Gallery Item Margin (in pixels)', 'jmig_plugin' ); ?></th>
+									
+										<td><input id="jmig_option_item_margin" class="regular-text" type="text" name="jmig_option[item_margin]" maxlength="2" value="<?php esc_attr_e( $jmig_options['item_margin'] ); ?>" />
+										<label class="description" for="jmig_option[item_margin]"><?php _e( 'Please DO NOT enter \'px\'. Just enter the number. Leave blank for default 2px margin.', 'jmig_plugin' ); ?></label>
+										</td>
+									</tr>
 						
 							</table>
 					
@@ -83,12 +94,17 @@ if (is_admin()) {
 		
 		}
 		
-		
 		function jmig_options_validate($input) {
 			
-			global $select_options, $radio_options;
+			if ( ! isset( $jmig_options['fixed_layout'] ) )
 				
-				return $input;
+				$jmig_options['fixed_layout'] = null;
+				
+				$jmig_options['fixed_layout'] = ( $jmig_options['fixed_layout'] == 1 ? 1 : 0 );
+				
+				$jmig_options['item_margin'] = wp_filter_nohtml_kses( $jmig_options['item_margin'] );
+					
+					return $input;
 		}
 
 }
@@ -99,13 +115,40 @@ else {
 	
 	if ($wp_version >= '3.9') {
 	
+		$jmig_options = get_option('jmig_option');
+
+			///Next Function enables HTML5 galleries.
+			
+			if(!isset($jmig_options['fixed_layout'])) { 
+			
+				function jmig_html5_gallery() {
+				
+					add_theme_support( 'html5', array( 'gallery', 'caption' ) );		
+					
+				}
+			
+					add_action( 'after_setup_theme', 'jmig_html5_gallery');			
+			
+			}
+		
+		
+		
+		
 		function jmig_css() {
 	
 			global $post;
 			global $wp_styles;
 				
 				if( has_shortcode( $post->post_content, 'gallery') ) {
+				
+					//Keep animation css file seperate. Probably not a bad idea to rename the file to something like jmig-masonry-v3-animation.css
 
+					wp_enqueue_style('jmig_stylesheet_layout',
+					plugins_url( 'styles/jmig-test.css' , __FILE__ ),
+					array(),
+					'2.1.7'
+					);
+					
 					wp_enqueue_style('jmig_stylesheet',
 					plugins_url( 'styles/jmig-masonry-v3.css' , __FILE__ ),
 					array(),
@@ -115,11 +158,22 @@ else {
 						$jmig_options = get_option('jmig_option');
 
 							if(!isset($jmig_options['fixed_layout'])) { 	
+							
 
 								$thumbnail_width = get_option( 'thumbnail_size_w' );
-								$custom_css = '.gallery-item, .gallery-item img {width: ' . $thumbnail_width . 'px !important; max-width: ' . $thumbnail_width . 'px !important; min-width: ' . $thumbnail_width . 'px !important;}';
+								$custom_css = '
+									
+									.gallery-item, .gallery-item img, gallery-item a {
+										width: ' . $thumbnail_width . 'px !important;
+										max-width: ' . $thumbnail_width . 'px !important;
+										min-width: ' . $thumbnail_width . 'px !important;
+								
+									}
+									.gallery-item {margin: 2px !important}
+									.gallery {margin: 1.5em auto !important}
+									';
 		
-									wp_add_inline_style( 'jmig_stylesheet', $custom_css );
+										wp_add_inline_style( 'jmig_stylesheet', $custom_css );
 							}
 								
 										
