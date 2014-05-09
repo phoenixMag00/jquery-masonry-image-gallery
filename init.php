@@ -62,7 +62,6 @@ if (is_admin()) {
 				</style>
 				
 					<form method="post" action="options.php">
-<<<<<<< HEAD
 					
 						<?php settings_fields('jmig_options_options'); ?>
 						<?php $jmig_options = get_option('jmig_option'); ?>
@@ -109,32 +108,6 @@ if (is_admin()) {
 					
 								<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" /></p>
 								
-=======
-					
-						<?php settings_fields('jmig_options_options'); ?>
-						<?php $jmig_options = get_option('jmig_option'); ?>
-					
-							<table class="form-table">
-					
-								<p>Check this box <strong>ONLY</strong> if you need to maintain the column count in the WordPress gallery short code. Might be necessary in some themes.</p>
-						
-									<tr valign="top"><th scope="row"><strong>DO NOT</strong> allow Masonry to layout your gallery columns?</th>
-							
-										<td><input name="jmig_option[fixed_layout]" type="checkbox" value="1" <?php checked( '1', (isset($jmig_options['fixed_layout'])) ); ?> /></td>
-									
-									</tr>
-									
-									<tr valign="top"><th scope="row"><?php _e( 'Gallery Item Margin (in pixels)', 'jmig_plugin' ); ?></th>
-									
-										<td><input id="jmig_option_item_margin" class="regular-text" type="text" name="jmig_option[item_margin]" maxlength="2" value="<?php esc_attr_e( $jmig_options['item_margin'] ); ?>" />
-										<label class="description" for="jmig_option[item_margin]"><?php _e( 'Please DO NOT enter \'px\'. Just enter the number. Leave blank for default 2px margin.', 'jmig_plugin' ); ?></label>
-										</td>
-									</tr>
-						
-							</table>
-					
-								<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" /></p>
->>>>>>> FETCH_HEAD
 					</form>
 					
 			</div>
@@ -145,19 +118,10 @@ if (is_admin()) {
 		
 		function jmig_options_validate($input) {
 			
-<<<<<<< HEAD
 			if ( ! isset( $jmig_options['fixed_layout'] ) )$jmig_options['fixed_layout'] = null;
 				
 				$jmig_options['fixed_layout'] = ( $jmig_options['fixed_layout'] == 1 ? 1 : 0 );
 				
-=======
-			if ( ! isset( $jmig_options['fixed_layout'] ) )
-				
-				$jmig_options['fixed_layout'] = null;
-				
-				$jmig_options['fixed_layout'] = ( $jmig_options['fixed_layout'] == 1 ? 1 : 0 );
-				
->>>>>>> FETCH_HEAD
 				$jmig_options['item_margin'] = wp_filter_nohtml_kses( $jmig_options['item_margin'] );
 					
 					return $input;
@@ -171,108 +135,9 @@ else {
 	
 	if ($wp_version >= '3.9') {
 	
-<<<<<<< HEAD
 		$three_dot_nine = plugin_dir_path( __FILE__ ) . "functions/three-dot-nine.php";
 			
 			include_once($three_dot_nine);
-=======
-		$jmig_options = get_option('jmig_option');
-
-			///Next Function enables HTML5 galleries.
-			
-			if(!isset($jmig_options['fixed_layout'])) { 
-			
-				function jmig_html5_gallery() {
-				
-					add_theme_support( 'html5', array( 'gallery', 'caption' ) );		
-					
-				}
-			
-					add_action( 'after_setup_theme', 'jmig_html5_gallery');			
-			
-			}
-		
-		
-		
-		
-		function jmig_css() {
-	
-			global $post;
-			global $wp_styles;
-				
-				if( has_shortcode( $post->post_content, 'gallery') ) {
-				
-					//Keep animation css file seperate. Probably not a bad idea to rename the file to something like jmig-masonry-v3-animation.css
-
-					wp_enqueue_style('jmig_stylesheet_layout',
-					plugins_url( 'styles/jmig-test.css' , __FILE__ ),
-					array(),
-					'2.1.7'
-					);
-					
-					wp_enqueue_style('jmig_stylesheet',
-					plugins_url( 'styles/jmig-masonry-v3.css' , __FILE__ ),
-					array(),
-					'2.1.7'
-					);
-
-						$jmig_options = get_option('jmig_option');
-
-							if(!isset($jmig_options['fixed_layout'])) { 	
-							
-
-								$thumbnail_width = get_option( 'thumbnail_size_w' );
-								$custom_css = '
-									
-									.gallery-item, .gallery-item img, gallery-item a {
-										width: ' . $thumbnail_width . 'px !important;
-										max-width: ' . $thumbnail_width . 'px !important;
-										min-width: ' . $thumbnail_width . 'px !important;
-								
-									}
-									.gallery-item {margin: 2px !important}
-									.gallery {margin: 1.5em auto !important}
-									';
-		
-										wp_add_inline_style( 'jmig_stylesheet', $custom_css );
-							}
-								
-										
-								wp_enqueue_style( 'jmig-lte-IE9',
-								plugins_url( 'styles/jmig-lte-ie9.css' , __FILE__ ),
-								array(),
-								'2.1.7'
-								);
-										
-									$wp_styles->add_data( 'jmig-lte-IE9', 'conditional', 'lte IE 9' );
-										
-					
-				}
-
-		}
-
-			add_action( 'wp_enqueue_scripts', 'jmig_css', 99 );
-
-		function jmig_js() {
-			
-			global $post;
-			
-				if( has_shortcode( $post->post_content, 'gallery') ) {
-					
-					wp_register_script('masonryInit',
-					plugins_url( 'js/masonry-init-v3.js' , __FILE__ ),
-					array('masonry'),
-					'2.1.7', 
-					true);
-		      
-						wp_enqueue_script('masonryInit');
-						
-				}
-	  
-		}
-			
-			add_action( 'wp_enqueue_scripts', 'jmig_js');
->>>>>>> FETCH_HEAD
 		
 	}
 	
@@ -280,56 +145,7 @@ else {
 	
 	elseif ($wp_version >= '3.6') {
 	
-<<<<<<< HEAD
 		$three_dot_six = plugin_dir_path( __FILE__ ) . "functions/three-dot-six.php";
-=======
-		$jmig_options = get_option('jmig_option');
-
-			if(!isset($jmig_options['fixed_layout'])) { 
-					
-				function jmig_css() {
-		
-					global $post;
-		
-						if( has_shortcode( $post->post_content, 'gallery') ) {
-	
-							wp_enqueue_style('jmig_stylesheet',
-							plugins_url( 'styles/jmig-masonry-v2.css' , __FILE__ ),
-							array(),
-							'1.6'
-							);
-	    
-								$thumbnail_width = get_option( 'thumbnail_size_w' );
-								$custom_css = '.gallery-item, .gallery-item img {width: ' . $thumbnail_width . 'px !important;}';
-		
-									wp_add_inline_style( 'jmig_stylesheet', $custom_css );
-					
-						}
-	
-				}
-	
-					add_action( 'wp_enqueue_scripts', 'jmig_css', 99 );
-	
-			}
-	
-				function jmig_js() {
-					
-					global $post;
-					
-						if( has_shortcode( $post->post_content, 'gallery') ) {
-							
-							wp_register_script('masonryInit',
-							plugins_url( 'js/masonry-init-v2.js' , __FILE__ ),
-							array('jquery-masonry'),
-							'1.6', 
-							true);
-				      
-								wp_enqueue_script('masonryInit');
-								
-						}
-			  
-				}
->>>>>>> FETCH_HEAD
 			
 			include_once($three_dot_six);
 		
@@ -341,41 +157,7 @@ else {
 	
 		$three_dot_five = plugin_dir_path( __FILE__ ) . "functions/three-dot-five.php";
 			
-<<<<<<< HEAD
 			include_once($three_dot_five);
-=======
-				function jmig_css() 
-				
-					{
-						wp_enqueue_style('jmig_stylesheet',
-						plugins_url( 'styles/jmig-masonry-v2.css' , __FILE__ ),
-						array(),
-						'1.6'
-						);
-		        
-							$thumbnail_width = get_option( 'thumbnail_size_w' );
-							$custom_css = '.gallery-item, .gallery-item img {width: ' . $thumbnail_width . 'px !important;}';
-				
-								wp_add_inline_style( 'jmig_stylesheet', $custom_css );
-							
-					}
-		
-						add_action( 'wp_enqueue_scripts', 'jmig_css', 99 );
-			
-			}
-			
-				function masonry_init() {
-				
-						wp_register_script('masonryInit',
-						plugins_url( 'js/masonry-init-v2.js' , __FILE__ ),
-						array('jquery-masonry'),
-				        '1.6', 
-						true);
-		        
-							wp_enqueue_script('masonryInit');
-		     
-				}
->>>>>>> FETCH_HEAD
 		  
 	}
 
