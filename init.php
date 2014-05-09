@@ -5,7 +5,7 @@
 Plugin Name:  jQuery Masonry Image Gallery
 Plugin URI:   http://willrees.com/2013/02/jquery-masonry-and-native-wordpress-image-galleries/
 Description:  Injects jQuery Masonry for native WordPress image galleries. jQuery Masonry is included in WordPress, use it for image galleries. Works best on galleries <strong>without</strong> 1:1 scaled thumbnails.
-Version:      2.1.3
+Version:      2.1.7
 Author:       Will Rees
 Author URI:   http://willrees.com
 License:
@@ -54,37 +54,79 @@ if (is_admin()) {
 ?>
 
 			<div class="wrap">
+				
 				<h2>jQuery Masonry Image Gallery Options</h2>
-				<form method="post" action="options.php">
-					<?php settings_fields('jmig_options_options'); ?>
-					<?php $jmig_options = get_option('jmig_option'); ?>
-					<table class="form-table">
+				
+				<style>
+				#jmig_option_item_margin {width: 2em !important;}
+				</style>
+				
+					<form method="post" action="options.php">
 					
-						<p>Check this box <strong>ONLY</strong> if you need to maintain the column count in the WordPress gallery short code. Might be necessary in some themes.</p>
+						<?php settings_fields('jmig_options_options'); ?>
+						<?php $jmig_options = get_option('jmig_option'); ?>
+					
+							<table class="form-table">
+								
+								<tr valign="top">
+								
+									<th scope="row"><?php _e( 'Gallery Item Margin (in pixels)', 'jmig_plugin' ); ?></th>
+								
+										<td>
+											
+											<input id="jmig_option_item_margin" class="regular-text" type="text" name="jmig_option[item_margin]" maxlength="2" value="<?php esc_attr_e( $jmig_options['item_margin'] ); ?>" />
+											
+											<label class="description" for="jmig_option[item_margin]"><?php _e( 'px. Please DO NOT enter \'px\'. Just enter the number. Leave blank for default 2px margin.', 'jmig_plugin' ); ?></label>
+											
+										</td>
+								
+								</tr>
+									
+							</table>
+							
+							<table class="form-table">
+							
+								<h3>If you want to remove all CSS injected by jMIG, then click both the following boxes. It will also remove the custom margin from above if one was entered.</h3>
+									
+									<tr valign="top">
+									
+										<th scope="row"><strong>DO NOT allow jMIG to add any CSS that modifies your gallery or gallery items.</strong></th>
+								
+											<td><input name="jmig_option[no_added_css]" type="checkbox" value="1" <?php checked( '1', (isset($jmig_options['no_added_css'])) ); ?> /></td>
+									
+									</tr>
+									
+									<tr valign="top">
+									
+										<th scope="row"><strong>DO NOT</strong> allow jMIG to layout your gallery columns?</th>
 						
-						<tr valign="top"><th scope="row"><strong>DO NOT</strong> allow Masonry to layout your gallery columns?</th>
-							<td><input name="jmig_option[fixed_layout]" type="checkbox" value="1" <?php checked( '1', (isset($jmig_options['fixed_layout'])) ); ?> /></td>
-						</tr>
-						
-					</table>
-					<p class="submit">
-					<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
-					</p>
-				</form>
+											<td><input name="jmig_option[fixed_layout]" type="checkbox" value="1" <?php checked( '1', (isset($jmig_options['fixed_layout'])) ); ?> /></td>
+								
+									</tr>
+															
+							</table>
+					
+								<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" /></p>
+								
+					</form>
+					
 			</div>
 			
 	<?php	
 		
 		}
 		
-		
 		function jmig_options_validate($input) {
 			
-			global $select_options, $radio_options;
+			if ( ! isset( $jmig_options['fixed_layout'] ) )$jmig_options['fixed_layout'] = null;
 				
-				return $input;
+				$jmig_options['fixed_layout'] = ( $jmig_options['fixed_layout'] == 1 ? 1 : 0 );
+				
+				$jmig_options['item_margin'] = wp_filter_nohtml_kses( $jmig_options['item_margin'] );
+					
+					return $input;
 		}
-	
+
 }
 
 else {
@@ -93,161 +135,32 @@ else {
 	
 	if ($wp_version >= '3.9') {
 	
-		function jmig_css() {
-	
-			global $post;
-			global $wp_styles;
-			global $is_IE;
-	
-				if( has_shortcode( $post->post_content, 'gallery') ) {
-
-					wp_enqueue_style('jmig_stylesheet',
-					plugins_url( 'styles/jmig-masonry-v3.css' , __FILE__ )
-					);
-							
-						$jmig_options = get_option('jmig_option');
-							
-							if(!isset($jmig_options['fixed_layout'])) { 	
-								
-								$thumbnail_width = get_option( 'thumbnail_size_w' );
-								$custom_css = '.gallery-item, .gallery-item img {width: ' . $thumbnail_width . 'px !important;}';
-		
-									wp_add_inline_style( 'jmig_stylesheet', $custom_css );
-							}
-								
-								if ($is_IE) {
-										
-										wp_enqueue_style( 'jmig-lte-IE9',
-										plugins_url( 'styles/jmig-lte-ie9.css' , __FILE__ )
-										);
-											
-											$wp_styles->add_data( 'jmig-lte-IE9', 'conditional', 'lte IE 9' );
-										
-								}
-					
-				}
-
-		}
-
-			add_action( 'wp_enqueue_scripts', 'jmig_css', 99 );
-
-		function jmig_js() {
+		$three_dot_nine = plugin_dir_path( __FILE__ ) . "functions/three-dot-nine.php";
 			
-			global $post;
-			
-				if( has_shortcode( $post->post_content, 'gallery') ) {
-					
-					wp_register_script('masonryInit',
-					plugins_url( 'js/masonry-init-v3.js' , __FILE__ ),
-					array('jquery-masonry'),
-					'2.0', 
-					true);
-		      
-						wp_enqueue_script('masonryInit');
-						
-				}
-	  
-		}
-			
-			add_action( 'wp_enqueue_scripts', 'jmig_js');
+			include_once($three_dot_nine);
 		
 	}
 	
-	//LEGACY CODE BELOW FOR WORDPRESS VERSIONS 3.6.X AND BELOW.
+	//LEGACY CODE BELOW FOR WORDPRESS VERSIONS 3.8.X TO 3.6.X.
 	
 	elseif ($wp_version >= '3.6') {
 	
-		$jmig_options = get_option('jmig_option');
-
-			if(!isset($jmig_options['fixed_layout'])) { 
-					
-				function jmig_css() {
-		
-						global $post;
-		
-							if( has_shortcode( $post->post_content, 'gallery') ) {
-	
-								wp_enqueue_style('jmig_stylesheet',
-								plugins_url( 'styles/jmig-masonry-v2.css' , __FILE__ )
-								);
-	        
-									$thumbnail_width = get_option( 'thumbnail_size_w' );
-									$custom_css = '.gallery-item, .gallery-item img {width: ' . $thumbnail_width . 'px !important;}';
+		$three_dot_six = plugin_dir_path( __FILE__ ) . "functions/three-dot-six.php";
 			
-										wp_add_inline_style( 'jmig_stylesheet', $custom_css );
-						
-							}
-	
-					}
-	
-						add_action( 'wp_enqueue_scripts', 'jmig_css', 99 );
-	
-			}
-	
-				function jmig_js() {
-					
-					global $post;
-					
-						if( has_shortcode( $post->post_content, 'gallery') ) {
-							
-							wp_register_script('masonryInit',
-							plugins_url( 'js/masonry-init-v2.js' , __FILE__ ),
-							array('jquery-masonry'),
-							'1.6', 
-							true);
-				      
-								wp_enqueue_script('masonryInit');
-								
-						}
-			  
-				}
-			
-					add_action( 'wp_enqueue_scripts', 'jmig_js');
+			include_once($three_dot_six);
 		
 	}
 
-	//BELOW IS ONLY FOR WORDPRESS 3.5...#oldmanriver
+	//BELOW IS ONLY FOR WORDPRESS 3.5.X ...#oldmanriver
 			
 	else {
 	
-		$jmig_options = get_option('jmig_option');
-		
-			if(!isset($jmig_options['fixed_layout'])) {
+		$three_dot_five = plugin_dir_path( __FILE__ ) . "functions/three-dot-five.php";
 			
-				function jmig_css() 
-				
-					{
-						wp_enqueue_style('jmig_stylesheet',
-						plugins_url( 'styles/jmig-masonry-v2.css' , __FILE__ )
-						);
-		        
-							$thumbnail_width = get_option( 'thumbnail_size_w' );
-							$custom_css = '.gallery-item, .gallery-item img {width: ' . $thumbnail_width . 'px !important;}';
-				
-								wp_add_inline_style( 'jmig_stylesheet', $custom_css );
-							
-					}
-		
-						add_action( 'wp_enqueue_scripts', 'jmig_css', 99 );
-			
-			}
-			
-				function masonry_init() {
-				
-						wp_register_script('masonryInit',
-						plugins_url( 'js/masonry-init-v2.js' , __FILE__ ),
-						array('jquery-masonry'),
-				        '1.6', 
-						true);
-		        
-							wp_enqueue_script('masonryInit');
-		     
-				}
+			include_once($three_dot_five);
 		  
-					add_action('wp_enqueue_scripts', 'masonry_init');
-	
 	}
-  
+
 }
 
 ?>
