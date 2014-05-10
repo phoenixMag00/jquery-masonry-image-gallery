@@ -76,7 +76,7 @@ if (is_admin()) {
 											
 											<input id="jmig_option_item_margin" class="regular-text" type="text" name="jmig_option[item_margin]" maxlength="2" value="<?php esc_attr_e( $jmig_options['item_margin'] ); ?>" />
 											
-											<label class="description" for="jmig_option[item_margin]"><?php _e( 'px. Please DO NOT enter \'px\'. Just enter the number. Leave blank for default 2px margin.', 'jmig_plugin' ); ?></label>
+											<label class="description" for="jmig_option[item_margin]"><?php _e( 'px. Please DO NOT enter \'px\'. Just enter the number. Leave blank for default 1px margin.', 'jmig_plugin' ); ?></label>
 											
 										</td>
 								

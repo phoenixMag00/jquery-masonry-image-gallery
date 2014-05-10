@@ -51,7 +51,7 @@
 										
 											if ( $jmig_options['item_margin'] == NULL ) {
 												
-												$custom_css_margin = '.gallery-item {margin: 2px !important}';
+												$custom_css_margin = '.gallery-item {margin: 1px !important}';
 												
 											}
 											
