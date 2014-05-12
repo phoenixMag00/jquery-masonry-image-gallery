@@ -26,7 +26,7 @@
 							if(!isset($jmig_options['no_added_css'])) {
 								
 								wp_enqueue_style('jmig_stylesheet_layout',
-								plugins_url( '/styles/jmig-masonry-v3-layout.css' , dirname(__FILE__) ),
+								plugins_url( '/styles/jmig-masonry-layout.css' , dirname(__FILE__) ),
 								array(),
 								'2.1.7'
 								);
