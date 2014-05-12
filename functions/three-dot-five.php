@@ -7,7 +7,7 @@
 			function jmig_css() {
 					
 				wp_enqueue_style('jmig_stylesheet',
-				plugins_url( 'styles/jmig-masonry-v2.css' , __FILE__ ),
+				plugins_url( 'styles/jmig-masonry-v2.css' , dirname(__FILE__ ) ),
 				array(),
 				'1.6'
 				);
@@ -26,7 +26,7 @@
 			function masonry_init() {
 			
 				wp_register_script('masonryInit',
-				plugins_url( 'js/masonry-init-v2.js' , __FILE__ ),
+				plugins_url( 'js/masonry-init-v2.js' , dirname(__FILE__ ) ),
 				array('jquery-masonry'),
 		        '1.6', 
 				true);
