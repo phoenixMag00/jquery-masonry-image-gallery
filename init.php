@@ -58,7 +58,9 @@ if (is_admin()) {
 				<h2>jQuery Masonry Image Gallery Options</h2>
 				
 				<style>
-				#jmig_option_item_margin {width: 2em !important;}
+				
+					#jmig_option_item_margin {width: 2em !important;}
+				
 				</style>
 				
 					<form method="post" action="options.php">
