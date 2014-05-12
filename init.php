@@ -121,10 +121,14 @@ if (is_admin()) {
 			if ( ! isset( $jmig_options['fixed_layout'] ) )$jmig_options['fixed_layout'] = null;
 				
 				$jmig_options['fixed_layout'] = ( $jmig_options['fixed_layout'] == 1 ? 1 : 0 );
+			
+			if ( ! isset( $jmig_options['no_added_css'] ) )$jmig_options['no_added_css'] = null;
 				
-				$jmig_options['item_margin'] = wp_filter_nohtml_kses( $jmig_options['item_margin'] );
+				$jmig_options['no_added_css'] = ( $jmig_options['no_added_css'] == 1 ? 1 : 0 );
+				
+			$jmig_options['item_margin'] = wp_filter_nohtml_kses( $jmig_options['item_margin'] );
 					
-					return $input;
+				return $input;
 		}
 
 }
