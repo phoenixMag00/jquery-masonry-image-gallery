@@ -54,15 +54,16 @@ if (is_admin()) {
 ?>
 
 			<div class="wrap">
-				
-				<h2>jQuery Masonry Image Gallery Options</h2>
-				
+			
 				<style>
 				
 					#jmig_option_item_margin {width: 2em !important;}
 				
 				</style>
 				
+				
+				<h2>jQuery Masonry Image Gallery Options</h2>
+			
 					<form method="post" action="options.php">
 					
 						<?php settings_fields('jmig_options_options'); ?>
@@ -109,8 +110,17 @@ if (is_admin()) {
 							</table>
 					
 								<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" /></p>
-								
+		
 					</form>
+					
+						<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+	
+							<input type="hidden" name="cmd" value="_s-xclick">
+							<input type="hidden" name="hosted_button_id" value="NB46DBF4VJV5G">
+							<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+							<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+						
+						</form>
 					
 			</div>
 			
