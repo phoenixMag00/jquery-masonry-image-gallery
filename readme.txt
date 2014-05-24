@@ -16,7 +16,7 @@ Adds a Masonry layout to all galleries that are using the WordPress [gallery] sh
 
 Adds a Masonry layout to all galleries that are using the WordPress [gallery] shortcode. Looks best on galleries that are not using 1:1 ratio thumbnails.
 
-<strong>Please note:</strong> By default this plugin includes CSS that will overwrite the existing gallery layout. However, you can turn off some or all of the layout CSS on the options page under Settings.
+<strong>Please note:</strong> By default this plugin includes CSS that will overwrite the existing gallery layout. However, you can turn off some or all of the jMIG layout CSS on the options page under Settings.
 
 This plugin also includes 1 CSS file that is for animation purposes only (Chrome, Firefox, Safari and IE 10+). The entire gallery will fade in using a CSS3 animation once all the images have loaded. IE 8 and IE 9 will work, but will not fade in.
 
