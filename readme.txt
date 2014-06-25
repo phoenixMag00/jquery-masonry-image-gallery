@@ -29,7 +29,7 @@ This plugin also includes 1 CSS file that is for animation purposes only (Chrome
 
 == Frequently asked questions ==
 
-= All of my galleries looked different when I upgraded this plugin to 2.2. Can I change it back? =
+= All of my galleries looked different before I upgraded this plugin to 2.2. Can I change it back? =
 Yes. Go to Dashboard -> Settings -> JMIG Options. Check the box DO NOT allow jMIG to add any CSS that modifies your gallery or gallery items, then save.
 
 = The specified amount of columns in the gallery short code is not working. What's wrong?  =
