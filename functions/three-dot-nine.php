@@ -19,7 +19,7 @@
 				global $post;
 				global $wp_styles;
 
-					if( has_shortcode( $post->post_content, 'gallery') ) {
+					if( isset($post->post_content) and has_shortcode( $post->post_content, 'gallery') ) {
 
 						$jmig_options = get_option('jmig_option');
 
@@ -28,14 +28,14 @@
 								wp_enqueue_style('jmig_stylesheet_layout',
 								plugins_url( '/styles/jmig-masonry-layout.css' , dirname(__FILE__) ),
 								array(),
-								'2.2'
+								'2.2.1'
 								);
 							}
 
 								wp_enqueue_style('jmig_stylesheet',
 									plugins_url( 'styles/jmig-masonry-v3-animation.css' , dirname(__FILE__ ) ),
 									array(),
-									'2.2'
+									'2.2.1'
 								);
 
 									if(!isset($jmig_options['fixed_layout'])) {
@@ -68,7 +68,7 @@
 												wp_enqueue_style( 'jmig-lte-IE9',
 												plugins_url( 'styles/jmig-lte-ie9.css' , dirname(__FILE__ ) ),
 												array(),
-												'2.2'
+												'2.2.1'
 												);
 
 													$wp_styles->add_data( 'jmig-lte-IE9', 'conditional', 'lte IE 9' );
@@ -83,12 +83,12 @@
 
 				global $post;
 
-					if( has_shortcode( $post->post_content, 'gallery') ) {
+					if( isset($post->post_content) and has_shortcode( $post->post_content, 'gallery') ) {
 
 						wp_register_script('masonryInit',
 						plugins_url( 'js/masonry-init-v3.js' , dirname(__FILE__ ) ),
 						array('masonry'),
-						'2.2',
+						'2.2.1',
 						true);
 
 							wp_enqueue_script('masonryInit');
