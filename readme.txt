@@ -1,9 +1,9 @@
 === jQuery Masonry Image Gallery ===
 Contributors: phoenixMagoo
 Donate link: http://bit.ly/1jzZKCu
-Tags: gallery, jquery masonry, masonry
+Tags: gallery, jquery masonry, masonry, lazy load
 Requires at least: 3.5
-Tested up to: 3.9.1
+Tested up to: 4.1
 Stable tag: 2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

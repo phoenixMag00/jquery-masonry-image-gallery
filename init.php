@@ -5,12 +5,13 @@
 Plugin Name:  jQuery Masonry Image Gallery
 Plugin URI:   http://willrees.com/2013/02/jquery-masonry-and-native-wordpress-image-galleries/
 Description:  Injects jQuery Masonry for native WordPress image galleries. jQuery Masonry is included in WordPress, use it for image galleries. Works best on galleries <strong>without</strong> 1:1 scaled thumbnails.
-Version:      2.2.1
+Version:      3.0
 Author:       Will Rees
 Author URI:   http://willrees.com
+Text Domain:  jquery-masonry-image-gallery
 License:
 
-  Copyright 2014 Will Rees (rees.will@gmail.com)
+  Copyright 2015 Will Rees (rees.will@gmail.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as
@@ -62,7 +63,7 @@ if (is_admin()) {
 				</style>
 
 
-				<h2>jQuery Masonry Image Gallery Options</h2>
+				<h2><?php _e( 'jQuery Masonry Image Gallery Options', 'jquery-masonry-image-gallery' ); ?></h2>
 
 					<form method="post" action="options.php">
 
@@ -73,27 +74,42 @@ if (is_admin()) {
 
 								<tr valign="top">
 
-									<th scope="row"><?php _e( 'Gallery Item Margin (in pixels)', 'jmig_plugin' ); ?></th>
+									<th scope="row"><?php _e( 'Gallery Item Margin (in pixels)', 'jquery-masonry-image-gallery' ); ?></th>
 
 										<td>
 
-											<input id="jmig_option_item_margin" class="regular-text" type="text" name="jmig_option[item_margin]" maxlength="2" value="<?php esc_attr_e( $jmig_options['item_margin'] ); ?>" />
+											<input id="jmig_option_item_margin" class="regular-text" type="text" name="jmig_option[item_margin]" maxlength="2" value="<?php esc_attr_e( $jmig_options['item_margin'] , 'jquery-masonry-image-gallery'); ?>" />
 
-											<label class="description" for="jmig_option[item_margin]"><?php _e( 'px. Please DO NOT enter \'px\'. Just enter the number. Leave blank for default 1px margin.', 'jmig_plugin' ); ?></label>
+											<label class="description" for="jmig_option[item_margin]"><?php _e( 'px. Please DO NOT enter \'px\'. Just enter the number. Leave blank for default 1px margin.', 'jquery-masonry-image-gallery' ); ?></label>
 
 										</td>
 
 								</tr>
 
 							</table>
-
+							
 							<table class="form-table">
 
-								<h3>If you want to remove all CSS injected by jMIG, then click both the following boxes. It will also remove the custom margin from above if one was entered.</h3>
+								<h3><?php _e( 'If you want to use Lazy Load blarg. You must use the default CSS', 'jquery-masonry-image-gallery' ); ?></h3>
 
 									<tr valign="top">
 
-										<th scope="row"><strong>DO NOT allow jMIG to add any CSS that modifies your gallery or gallery items.</strong></th>
+										<th scope="row"><strong><?php _e( 'Use Lazy Load', 'jquery-masonry-image-gallery' ); ?></strong></th>
+
+											<td><input name="jmig_option[use_lazy]" type="checkbox" value="1" <?php checked( '1', (isset($jmig_options['use_lazy'])) ); ?> /></td>
+
+									</tr>
+
+
+							</table>
+
+							<table class="form-table">
+
+								<h3><?php _e( 'If you want to remove all CSS injected by jMIG, then click both the following boxes. It will also remove the custom margin from above if one was entered.', 'jquery-masonry-image-gallery' ); ?></h3>
+
+									<tr valign="top">
+
+										<th scope="row"><strong><?php _e( 'DO NOT allow jMIG to add any CSS that modifies your gallery or gallery items.', 'jquery-masonry-image-gallery' ); ?></strong></th>
 
 											<td><input name="jmig_option[no_added_css]" type="checkbox" value="1" <?php checked( '1', (isset($jmig_options['no_added_css'])) ); ?> /></td>
 
@@ -101,7 +117,7 @@ if (is_admin()) {
 
 									<tr valign="top">
 
-										<th scope="row"><strong>DO NOT</strong> allow jMIG to layout your gallery columns?</th>
+										<th scope="row"><strong><?php _e( 'DO NOT allow jMIG to layout your gallery columns?', 'jquery-masonry-image-gallery' ); ?></strong></th>
 
 											<td><input name="jmig_option[fixed_layout]" type="checkbox" value="1" <?php checked( '1', (isset($jmig_options['fixed_layout'])) ); ?> /></td>
 
@@ -109,7 +125,7 @@ if (is_admin()) {
 
 							</table>
 
-								<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" /></p>
+								<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Save Changes', 'jquery-masonry-image-gallery') ?>" /></p>
 
 					</form>
 
@@ -137,6 +153,10 @@ if (is_admin()) {
 			if ( ! isset( $jmig_options['no_added_css'] ) )$jmig_options['no_added_css'] = null;
 
 				$jmig_options['no_added_css'] = ( $jmig_options['no_added_css'] == 1 ? 1 : 0 );
+				
+			if ( ! isset( $jmig_options['use_lazy'] ) )$jmig_options['use_lazy'] = null;
+
+				$jmig_options['use_lazy'] = ( $jmig_options['use_lazy'] == 1 ? 1 : 0 );
 
 			$jmig_options['item_margin'] = wp_filter_nohtml_kses( $jmig_options['item_margin'] );
 
@@ -147,8 +167,12 @@ if (is_admin()) {
 
 else {
 
+	
+	
+	$jmig_options = get_option('jmig_option');
+	
 	// START USING MASONRY 3 OPTIONS INSTEAD OF MASONRY 2. SHOULD BE A LITTLE FASTER AND RESPONSIVE.
-
+	
 	if ($wp_version >= '3.9') {
 
 		$three_dot_nine = plugin_dir_path( __FILE__ ) . "functions/three-dot-nine.php";
@@ -169,12 +193,20 @@ else {
 
 	//BELOW IS ONLY FOR WORDPRESS 3.5.X ...#oldmanriver
 
-	else {
+	elseif ($wp_version >= '3.5') {
 
 		$three_dot_five = plugin_dir_path( __FILE__ ) . "functions/three-dot-five.php";
 
 			include_once($three_dot_five);
 
+	}
+	
+	//BELOW 3.5? WE JUST BROKE UP.
+	
+	else {
+		
+		die();
+	
 	}
 
 }
