@@ -1,5 +1,7 @@
 <?php
-
+	
+	defined('ABSPATH') or die("No script kiddies please!");
+	
 	$jmig_options = get_option('jmig_option');
 
 		if(!isset($jmig_options['no_added_css'])) {

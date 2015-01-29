@@ -28,6 +28,8 @@ License:
 
 */
 
+defined('ABSPATH') or die("No script kiddies please!");
+
 if (is_admin()) {
 
 	add_action('admin_init', 'jmig_options_init' );

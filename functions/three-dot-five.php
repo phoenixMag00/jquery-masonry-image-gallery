@@ -1,4 +1,6 @@
-<?php
+<?php 
+	
+	defined('ABSPATH') or die("No script kiddies please!");
 
 	$jmig_options = get_option('jmig_option');
 		
