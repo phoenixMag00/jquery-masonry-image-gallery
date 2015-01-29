@@ -13,6 +13,7 @@ Adds a Masonry layout to all galleries that are using the WordPress [gallery] sh
 == Description ==
 
 [See Demo](http://willrees.com/jquery-masonry-wordpress-gallery-plugin-demo/?utm_source=wordpressorg&utm_medium=link&utm_campaign=jmig "See Demo")
+[See Demo with Lazy Load](http://willrees.com/jquery-masonry-wordpress-gallery-plugin-demo/?utm_source=wordpressorg&utm_medium=link&utm_campaign=jmig "See Demo")
 
 Adds a Masonry layout to all galleries that are using the WordPress [gallery] shortcode. Looks best on galleries that are not using 1:1 ratio thumbnails.
 
