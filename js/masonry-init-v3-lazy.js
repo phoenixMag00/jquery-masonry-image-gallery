@@ -56,7 +56,7 @@ jQuery(document).ready(function($) {
 						isFitWidth: true
 	    			})
 						
-						setTimeout(function() {$('.gallery').addClass('jmig-img-loaded');}, 300);
+						setTimeout(function() {$('.gallery').addClass('jmig-gallery-loaded');}, 300);
 						
   				});
 		

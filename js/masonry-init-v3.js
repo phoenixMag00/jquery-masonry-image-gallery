@@ -10,6 +10,6 @@ function initMasonry( container ) {
       columnWidth: '.gallery-item',
       isFitWidth: true
     });
-    container.className += " jmig-img-loaded";
+    container.className += " jmig-gallery-loaded";
   });
 }
