@@ -82,19 +82,24 @@
 				
 					if(isset($jmig_options['use_lazy'])) {
 						
+					if(!isset($jmig_options['no_lazy_file'])) {	
+						
 						wp_register_script('lazy_load',
 							plugins_url( 'js/jquery.lazyload.min.js' , dirname(__FILE__ ) ),
 							array('jquery'),
 							'1.9.3',
 							true);
-				
+							
+								wp_enqueue_script('lazy_load');
+					}
+							
 						wp_register_script('masonryInit',
 							plugins_url( 'js/masonry-init-v3-lazy.js' , dirname(__FILE__ ) ),
 							array('jquery-masonry'),
 							'3.0',
 							true);
 
-								wp_enqueue_script('lazy_load');
+								
 								wp_enqueue_script('masonryInit');
 						
 					} 

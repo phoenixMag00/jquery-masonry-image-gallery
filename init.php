@@ -101,6 +101,12 @@ if (is_admin()) {
 											<td><input name="jmig_option[use_lazy]" type="checkbox" value="1" <?php checked( '1', (isset($jmig_options['use_lazy'])) ); ?> /></td>
 
 									</tr>
+									
+									<th scope="row"><strong><?php _e( 'Do NOT load Lazy Load library (Only check if conflicts are real)', 'jquery-masonry-image-gallery' ); ?></strong></th>
+
+											<td><input name="jmig_option[no_lazy_file]" type="checkbox" value="1" <?php checked( '1', (isset($jmig_options['no_lazy_file'])) ); ?> /></td>
+
+									</tr>
 
 
 							</table>
@@ -159,6 +165,10 @@ if (is_admin()) {
 			if ( ! isset( $jmig_options['use_lazy'] ) )$jmig_options['use_lazy'] = null;
 
 				$jmig_options['use_lazy'] = ( $jmig_options['use_lazy'] == 1 ? 1 : 0 );
+				
+			if ( ! isset( $jmig_options['no_lazy_file'] ) )$jmig_options['no_lazy_file'] = null;
+
+				$jmig_options['no_lazy_file'] = ( $jmig_options['no_lazy_file'] == 1 ? 1 : 0 );
 
 			$jmig_options['item_margin'] = wp_filter_nohtml_kses( $jmig_options['item_margin'] );
 
