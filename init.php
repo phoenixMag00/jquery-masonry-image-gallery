@@ -92,7 +92,7 @@ if (is_admin()) {
 							
 							<table class="form-table">
 
-								<h3><?php _e( 'If you want to use Lazy Load blarg. You must use the default CSS', 'jquery-masonry-image-gallery' ); ?></h3>
+								<h3><?php _e( 'Lazy Load' ); ?></h3>
 
 									<tr valign="top">
 
@@ -102,7 +102,7 @@ if (is_admin()) {
 
 									</tr>
 									
-									<th scope="row"><strong><?php _e( 'Do NOT load Lazy Load library (Only check if conflicts are real)', 'jquery-masonry-image-gallery' ); ?></strong></th>
+									<th scope="row"><strong><?php _e( 'Do NOT load Lazy Load JS library', 'jquery-masonry-image-gallery' ); ?></strong></th>
 
 											<td><input name="jmig_option[no_lazy_file]" type="checkbox" value="1" <?php checked( '1', (isset($jmig_options['no_lazy_file'])) ); ?> /></td>
 
@@ -178,8 +178,6 @@ if (is_admin()) {
 }
 
 else {
-
-	
 	
 	$jmig_options = get_option('jmig_option');
 	
