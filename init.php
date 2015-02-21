@@ -60,7 +60,7 @@ if (is_admin()) {
 
 				<style>
 
-					#jmig_option_item_margin {width: 2em !important;}
+					#jmig_option_item_margin {width: 3.5em !important;}
 
 				</style>
 
@@ -80,7 +80,7 @@ if (is_admin()) {
 
 										<td>
 
-											<input id="jmig_option_item_margin" class="regular-text" type="text" name="jmig_option[item_margin]" maxlength="2" value="<?php esc_attr_e( $jmig_options['item_margin'] , 'jquery-masonry-image-gallery'); ?>" />
+											<input id="jmig_option_item_margin" class="regular-text" type="number" name="jmig_option[item_margin]" maxlength="2" value="<?php esc_attr_e( $jmig_options['item_margin'] , 'jquery-masonry-image-gallery'); ?>" />
 
 											<label class="description" for="jmig_option[item_margin]"><?php _e( 'px. Please DO NOT enter \'px\'. Just enter the number. Leave blank for default 1px margin.', 'jquery-masonry-image-gallery' ); ?></label>
 
