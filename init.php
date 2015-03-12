@@ -32,192 +32,206 @@ defined('ABSPATH') or die("No script kiddies please!");
 
 if (is_admin()) {
 
-	add_action('admin_init', 'jmig_options_init' );
-	add_action('admin_menu', 'jmig_options_add_page');
+    add_action('admin_init', 'jmig_options_init');
+    add_action('admin_menu', 'jmig_options_add_page');
 
-		// Init plugin options to white list our options
-		function jmig_options_init(){
-			register_setting( 'jmig_options_options', 'jmig_option', 'jmig_options_validate' );
-		}
+    // Init plugin options to white list our options
+    function jmig_options_init()
+    {
+        register_setting('jmig_options_options', 'jmig_option', 'jmig_options_validate');
+    }
 
-		// Add menu page
-		function jmig_options_add_page() {
-			add_options_page('jQuery Masonry Image Gallery Options', 'JMIG Options', 'manage_options', 'jmig_options', 'jmig_options_do_page');
-		}
+    // Add menu page
+    function jmig_options_add_page()
+    {
+        add_options_page('jQuery Masonry Image Gallery Options', 'JMIG Options', 'manage_options', 'jmig_options', 'jmig_options_do_page');
+    }
 
-		// Draw the menu page itself
-		function jmig_options_do_page() {
+    // Draw the menu page itself
+    function jmig_options_do_page()
+    {
 
-		global $select_options, $radio_options;
+        global $select_options, $radio_options;
 
-		if ( ! isset( $_REQUEST['settings-updated'] ) )
+        if (!isset($_REQUEST['settings-updated']))
 
-		$_REQUEST['settings-updated'] = false;
+            $_REQUEST['settings-updated'] = false;
 
-?>
+        ?>
 
-			<div class="wrap">
+        <div class="wrap">
 
-				<style>
+            <style>
 
-					#jmig_option_item_margin {width: 3.5em !important;}
+                #jmig_option_item_margin {
+                    width: 3.5em !important;
+                }
 
-				</style>
+            </style>
 
 
-				<h2><?php _e( 'jQuery Masonry Image Gallery Options', 'jquery-masonry-image-gallery' ); ?></h2>
+            <h2><?php _e('jQuery Masonry Image Gallery Options', 'jquery-masonry-image-gallery'); ?></h2>
 
-					<form method="post" action="options.php">
+            <form method="post" action="options.php">
 
-						<?php settings_fields('jmig_options_options'); ?>
-						<?php $jmig_options = get_option('jmig_option'); ?>
+                <?php settings_fields('jmig_options_options'); ?>
+                <?php $jmig_options = get_option('jmig_option'); ?>
 
-							<table class="form-table">
+                <table class="form-table">
 
-								<tr valign="top">
+                    <tr valign="top">
 
-									<th scope="row"><?php _e( 'Gallery Item Margin (in pixels)', 'jquery-masonry-image-gallery' ); ?></th>
+                        <th scope="row"><?php _e('Gallery Item Margin (in pixels)', 'jquery-masonry-image-gallery'); ?></th>
 
-										<td>
+                        <td>
 
-											<input id="jmig_option_item_margin" class="regular-text" type="number" name="jmig_option[item_margin]" maxlength="2" value="<?php esc_attr_e( $jmig_options['item_margin'] , 'jquery-masonry-image-gallery'); ?>" />
+                            <input id="jmig_option_item_margin" class="regular-text" type="number"
+                                   name="jmig_option[item_margin]" maxlength="2"
+                                   value="<?php esc_attr_e($jmig_options['item_margin'], 'jquery-masonry-image-gallery'); ?>"/>
 
-											<label class="description" for="jmig_option[item_margin]"><?php _e( 'px. Please DO NOT enter \'px\'. Just enter the number. Leave blank for default 1px margin.', 'jquery-masonry-image-gallery' ); ?></label>
+                            <label class="description"
+                                   for="jmig_option[item_margin]"><?php _e('px. Please DO NOT enter \'px\'. Just enter the number. Leave blank for default 1px margin.', 'jquery-masonry-image-gallery'); ?></label>
 
-										</td>
+                        </td>
 
-								</tr>
+                    </tr>
 
-							</table>
-							
-							<table class="form-table">
+                </table>
 
-								<h3><?php _e( 'Lazy Load' ); ?></h3>
+                <table class="form-table">
 
-									<tr valign="top">
+                    <h3><?php _e('Lazy Load'); ?></h3>
 
-										<th scope="row"><strong><?php _e( 'Use Lazy Load', 'jquery-masonry-image-gallery' ); ?></strong></th>
+                    <tr valign="top">
 
-											<td><input name="jmig_option[use_lazy]" type="checkbox" value="1" <?php checked( '1', (isset($jmig_options['use_lazy'])) ); ?> /></td>
+                        <th scope="row"><strong><?php _e('Use Lazy Load', 'jquery-masonry-image-gallery'); ?></strong>
+                        </th>
 
-									</tr>
-									
-									<th scope="row"><strong><?php _e( 'Do NOT load Lazy Load JS library', 'jquery-masonry-image-gallery' ); ?></strong></th>
+                        <td><input name="jmig_option[use_lazy]" type="checkbox"
+                                   value="1" <?php checked('1', (isset($jmig_options['use_lazy']))); ?> /></td>
 
-											<td><input name="jmig_option[no_lazy_file]" type="checkbox" value="1" <?php checked( '1', (isset($jmig_options['no_lazy_file'])) ); ?> /></td>
+                    </tr>
 
-									</tr>
+                    <th scope="row">
+                        <strong><?php _e('Do NOT load Lazy Load JS library', 'jquery-masonry-image-gallery'); ?></strong>
+                    </th>
 
+                    <td><input name="jmig_option[no_lazy_file]" type="checkbox"
+                               value="1" <?php checked('1', (isset($jmig_options['no_lazy_file']))); ?> /></td>
 
-							</table>
+                    </tr>
 
-							<table class="form-table">
 
-								<h3><?php _e( 'If you want to remove all CSS injected by jMIG, then click both the following boxes. It will also remove the custom margin from above if one was entered.', 'jquery-masonry-image-gallery' ); ?></h3>
+                </table>
 
-									<tr valign="top">
+                <table class="form-table">
 
-										<th scope="row"><strong><?php _e( 'DO NOT allow jMIG to add any CSS that modifies your gallery or gallery items.', 'jquery-masonry-image-gallery' ); ?></strong></th>
+                    <h3><?php _e('If you want to remove all CSS injected by jMIG, then click both the following boxes. It will also remove the custom margin from above if one was entered.', 'jquery-masonry-image-gallery'); ?></h3>
 
-											<td><input name="jmig_option[no_added_css]" type="checkbox" value="1" <?php checked( '1', (isset($jmig_options['no_added_css'])) ); ?> /></td>
+                    <tr valign="top">
 
-									</tr>
+                        <th scope="row">
+                            <strong><?php _e('DO NOT allow jMIG to add any CSS that modifies your gallery or gallery items.', 'jquery-masonry-image-gallery'); ?></strong>
+                        </th>
 
-									<tr valign="top">
+                        <td><input name="jmig_option[no_added_css]" type="checkbox"
+                                   value="1" <?php checked('1', (isset($jmig_options['no_added_css']))); ?> /></td>
 
-										<th scope="row"><strong><?php _e( 'DO NOT allow jMIG to layout your gallery columns?', 'jquery-masonry-image-gallery' ); ?></strong></th>
+                    </tr>
 
-											<td><input name="jmig_option[fixed_layout]" type="checkbox" value="1" <?php checked( '1', (isset($jmig_options['fixed_layout'])) ); ?> /></td>
+                    <tr valign="top">
 
-									</tr>
+                        <th scope="row">
+                            <strong><?php _e('DO NOT allow jMIG to layout your gallery columns?', 'jquery-masonry-image-gallery'); ?></strong>
+                        </th>
 
-							</table>
+                        <td><input name="jmig_option[fixed_layout]" type="checkbox"
+                                   value="1" <?php checked('1', (isset($jmig_options['fixed_layout']))); ?> /></td>
 
-								<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Save Changes', 'jquery-masonry-image-gallery') ?>" /></p>
+                    </tr>
 
-					</form>
+                </table>
 
-						<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                <p class="submit"><input type="submit" class="button-primary"
+                                         value="<?php _e('Save Changes', 'jquery-masonry-image-gallery') ?>"/></p>
 
-							<input type="hidden" name="cmd" value="_s-xclick">
-							<input type="hidden" name="hosted_button_id" value="NB46DBF4VJV5G">
-							<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-							<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+            </form>
 
-						</form>
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
 
-			</div>
+                <input type="hidden" name="cmd" value="_s-xclick">
+                <input type="hidden" name="hosted_button_id" value="NB46DBF4VJV5G">
+                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0"
+                       name="submit" alt="PayPal - The safer, easier way to pay online!">
+                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 
-	<?php
+            </form>
 
-		}
+        </div>
 
-		function jmig_options_validate($input) {
+    <?php
 
-			if ( ! isset( $jmig_options['fixed_layout'] ) )$jmig_options['fixed_layout'] = null;
+    }
 
-				$jmig_options['fixed_layout'] = ( $jmig_options['fixed_layout'] == 1 ? 1 : 0 );
+    function jmig_options_validate($input)
+    {
 
-			if ( ! isset( $jmig_options['no_added_css'] ) )$jmig_options['no_added_css'] = null;
+        if (!isset($jmig_options['fixed_layout'])) $jmig_options['fixed_layout'] = null;
 
-				$jmig_options['no_added_css'] = ( $jmig_options['no_added_css'] == 1 ? 1 : 0 );
-				
-			if ( ! isset( $jmig_options['use_lazy'] ) )$jmig_options['use_lazy'] = null;
+        $jmig_options['fixed_layout'] = ($jmig_options['fixed_layout'] == 1 ? 1 : 0);
 
-				$jmig_options['use_lazy'] = ( $jmig_options['use_lazy'] == 1 ? 1 : 0 );
-				
-			if ( ! isset( $jmig_options['no_lazy_file'] ) )$jmig_options['no_lazy_file'] = null;
+        if (!isset($jmig_options['no_added_css'])) $jmig_options['no_added_css'] = null;
 
-				$jmig_options['no_lazy_file'] = ( $jmig_options['no_lazy_file'] == 1 ? 1 : 0 );
+        $jmig_options['no_added_css'] = ($jmig_options['no_added_css'] == 1 ? 1 : 0);
 
-			$jmig_options['item_margin'] = wp_filter_nohtml_kses( $jmig_options['item_margin'] );
+        if (!isset($jmig_options['use_lazy'])) $jmig_options['use_lazy'] = null;
 
-				return $input;
-		}
+        $jmig_options['use_lazy'] = ($jmig_options['use_lazy'] == 1 ? 1 : 0);
 
-}
+        if (!isset($jmig_options['no_lazy_file'])) $jmig_options['no_lazy_file'] = null;
 
-else {
-	
-	$jmig_options = get_option('jmig_option');
-	
-	// START USING MASONRY 3 OPTIONS INSTEAD OF MASONRY 2. SHOULD BE A LITTLE FASTER AND RESPONSIVE.
-	
-	if ($wp_version >= '3.9') {
+        $jmig_options['no_lazy_file'] = ($jmig_options['no_lazy_file'] == 1 ? 1 : 0);
 
-		$three_dot_nine = plugin_dir_path( __FILE__ ) . "functions/three-dot-nine.php";
+        $jmig_options['item_margin'] = wp_filter_nohtml_kses($jmig_options['item_margin']);
 
-			include_once($three_dot_nine);
+        return $input;
+    }
 
-	}
+} else {
 
-	//LEGACY CODE BELOW FOR WORDPRESS VERSIONS 3.8.X TO 3.6.X.
+    $jmig_options = get_option('jmig_option');
 
-	elseif ($wp_version >= '3.6') {
+    // START USING MASONRY 3 OPTIONS INSTEAD OF MASONRY 2. SHOULD BE A LITTLE FASTER AND RESPONSIVE.
 
-		$three_dot_six = plugin_dir_path( __FILE__ ) . "functions/three-dot-six.php";
+    if ($wp_version >= '3.9') {
 
-			include_once($three_dot_six);
+        $three_dot_nine = plugin_dir_path(__FILE__) . "functions/three-dot-nine.php";
 
-	}
+        include_once($three_dot_nine);
 
-	//BELOW IS ONLY FOR WORDPRESS 3.5.X ...#oldmanriver
+    } //LEGACY CODE BELOW FOR WORDPRESS VERSIONS 3.8.X TO 3.6.X.
 
-	elseif ($wp_version >= '3.5') {
+    elseif ($wp_version >= '3.6') {
 
-		$three_dot_five = plugin_dir_path( __FILE__ ) . "functions/three-dot-five.php";
+        $three_dot_six = plugin_dir_path(__FILE__) . "functions/three-dot-six.php";
 
-			include_once($three_dot_five);
+        include_once($three_dot_six);
 
-	}
-	
-	//BELOW 3.5? WE JUST BROKE UP.
-	
-	else {
-		
-		die();
-	
-	}
+    } //BELOW IS ONLY FOR WORDPRESS 3.5.X ...#oldmanriver
+
+    elseif ($wp_version >= '3.5') {
+
+        $three_dot_five = plugin_dir_path(__FILE__) . "functions/three-dot-five.php";
+
+        include_once($three_dot_five);
+
+    } //BELOW 3.5? WE JUST BROKE UP.
+
+    else {
+
+        die();
+
+    }
 
 }
 
