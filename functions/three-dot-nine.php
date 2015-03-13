@@ -101,7 +101,7 @@ function jmig_js()
             wp_register_script('lazy_load',
                 plugins_url('js/jquery.lazyload.min.js', dirname(__FILE__)),
                 array('jquery'),
-                '1.9.3',
+                '1.9.4',
                 true);
 
             wp_enqueue_script('lazy_load');
