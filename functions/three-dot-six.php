@@ -26,6 +26,16 @@ function jmig_css()
         '3.0'
     );
 
+    if (!isset($jmig_options['no_caption_css'])) {
+
+    wp_enqueue_style('jmig_captions',
+        plugins_url('styles/jmig-maosnry-v3-captions.css', dirname(__FILE__)),
+        array(),
+        '3.0'
+    );
+
+    }
+
     if (!isset($jmig_options['fixed_layout'])) {
 
         $thumbnail_width = get_option('thumbnail_size_w');

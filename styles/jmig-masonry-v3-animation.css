@@ -1,47 +1,60 @@
-@charset "UTF-8";
-.gallery, .jmig-img-hide {
-    opacity: 0
+@charset 'UTF-8';
+.gallery,
+.jmig-img-hide
+{
+    opacity: 0;
 }
 
 /* make keyframes that tell the start state and the end state of our object */
-@-webkit-keyframes fadeIn {
-    from {
+@-webkit-keyframes fadeIn
+{
+    from
+    {
         opacity: 0;
     }
-    to {
+    to
+    {
         opacity: 1;
     }
 }
 
-@-moz-keyframes fadeIn {
-    from {
+@-moz-keyframes fadeIn
+{
+    from
+    {
         opacity: 0;
     }
-    to {
+    to
+    {
         opacity: 1;
     }
 }
 
-@keyframes fadeIn {
-    from {
+@keyframes fadeIn
+{
+    from
+    {
         opacity: 0;
     }
-    to {
+    to
+    {
         opacity: 1;
     }
 }
 
-.jmig-gallery-loaded, .jmig-img-show {
-    opacity: 0; /* make things invisible upon start */
-    -webkit-animation: fadeIn ease-in 1; /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
-    -moz-animation: fadeIn ease-in 1;
-    animation: fadeIn ease-in 1;
-
-    -webkit-animation-fill-mode: forwards; /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
-    -moz-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
-
+.jmig-gallery-loaded,
+.jmig-img-show
+{
+    -webkit-animation: fadeIn ease-in-out 1; /* call our keyframe named fadeIn, use animattion ease-in-out and repeat it only 1 time */
+       -moz-animation: fadeIn ease-in-out 1;
+            animation: fadeIn ease-in-out 1;
     -webkit-animation-duration: .3s;
-    -moz-animation-duration: .3s;
-    animation-duration: .3s;
+       -moz-animation-duration: .3s;
+            animation-duration: .3s;
+
+    opacity: 0; /* make things invisible upon start */
+
+    -webkit-animation-fill-mode: both; /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+       -moz-animation-fill-mode: both;
+            animation-fill-mode: both;
 }

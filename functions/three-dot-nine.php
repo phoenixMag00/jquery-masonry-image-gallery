@@ -39,6 +39,16 @@ function jmig_css()
         '3.0'
     );
 
+    if (!isset($jmig_options['no_caption_css'])) {
+
+    wp_enqueue_style('jmig_captions',
+        plugins_url('styles/jmig-maosnry-v3-captions.css', dirname(__FILE__)),
+        array(),
+        '3.0'
+    );
+
+    }
+
     if (!isset($jmig_options['fixed_layout'])) {
 
         $thumbnail_width = get_option('thumbnail_size_w');
@@ -101,7 +111,7 @@ function jmig_js()
             wp_register_script('lazy_load',
                 plugins_url('js/jquery.lazyload.min.js', dirname(__FILE__)),
                 array('jquery'),
-                '1.9.4',
+                '1.9.5',
                 true);
 
             wp_enqueue_script('lazy_load');

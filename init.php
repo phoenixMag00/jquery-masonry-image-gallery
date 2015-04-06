@@ -142,11 +142,22 @@ if (is_admin()) {
                     <tr valign="top">
 
                         <th scope="row">
-                            <strong><?php _e('DO NOT allow jMIG to layout your gallery columns?', 'jquery-masonry-image-gallery'); ?></strong>
+                            <strong><?php _e('DO NOT allow jMIG to layout your gallery columns.', 'jquery-masonry-image-gallery'); ?></strong>
                         </th>
 
                         <td><input name="jmig_option[fixed_layout]" type="checkbox"
                                    value="1" <?php checked('1', (isset($jmig_options['fixed_layout']))); ?> /></td>
+
+                    </tr>
+
+                      <tr valign="top">
+
+                        <th scope="row">
+                            <strong><?php _e('DO NOT allow jMIG to modify your caption CSS.', 'jquery-masonry-image-gallery'); ?></strong>
+                        </th>
+
+                        <td><input name="jmig_option[no_caption_css]" type="checkbox"
+                                   value="1" <?php checked('1', (isset($jmig_options['no_caption_css']))); ?> /></td>
 
                     </tr>
 
@@ -179,6 +190,10 @@ if (is_admin()) {
         if (!isset($jmig_options['fixed_layout'])) $jmig_options['fixed_layout'] = null;
 
         $jmig_options['fixed_layout'] = ($jmig_options['fixed_layout'] == 1 ? 1 : 0);
+
+        if (!isset($jmig_options['no_caption_css'])) $jmig_options['no_caption_css'] = null;
+
+        $jmig_options['no_caption_css'] = ($jmig_options['no_caption_css'] == 1 ? 1 : 0);
 
         if (!isset($jmig_options['no_added_css'])) $jmig_options['no_added_css'] = null;
 
