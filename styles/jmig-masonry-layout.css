@@ -22,3 +22,7 @@
     border-radius: 0 !important;
     box-shadow: none !important;
 }
+.gallery-item
+{
+	background-color: #eaeaea;
+}
